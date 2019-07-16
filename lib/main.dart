@@ -23,6 +23,8 @@ class _ExperimentState extends State<Experiment> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text("Add everything here, Also use padding"),
+            // The size of card is as big as its children, to have a fixed size card, add container widget above card and give that container some height and width.
+
           ),
         ),
       ),
