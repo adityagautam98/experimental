@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
 
+const _emojis = ['😞','1','2','3','4','😃'];
+void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -52,8 +53,7 @@ class MyCustomFormState extends State<MyCustomForm>
   Widget build(BuildContext context) {
     data = MediaQuery.of(context);
     // Build a Form widget using the _formKey created above.
-    return Column(
-      mainAxisSize: MainAxisSize.min,
+    return ListView(
       children: <Widget>[
         Container(
           height: data.size.height * .3,
@@ -167,6 +167,64 @@ class MyCustomFormState extends State<MyCustomForm>
             ]),
           ),
         ),
+        Container(
+          decoration: BoxDecoration(
+              gradient: new LinearGradient(
+                  colors: [Colors.orangeAccent, Colors.white30],
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topRight
+              )
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  '${_emojis[_value.toInt()]}',
+                  style: Theme.of(context).textTheme.display1,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(_emojis[0], softWrap: true),
+                        Expanded(
+                          child: Slider(
+
+                            value: _value,
+                            //label: _emojis[_value.toInt()],
+                            min: 0.0,
+                            max: 5.0,
+                            divisions: 5,
+
+
+                            onChangeStart: (double value) {
+                              print('Start value is ' + value.toString());
+                            },
+                            onChangeEnd: (double value) {
+                              print('Finish value is ' + value.toString());
+                            },
+                            onChanged: (double value) {
+                              setState(() {
+                                _value = value;
+                              });
+                            },
+                            activeColor: Colors.white,
+                            inactiveColor: Colors.black45,
+                          ),
+                        ),
+                        Text(_emojis[5], softWrap: true,)
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+
       ],
     );
   }
