@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-void main() => runApp(
-    MyApp(
-    ));
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -32,9 +30,11 @@ class MyCustomForm extends StatefulWidget {
 
 // Create a corresponding State class.
 // This class holds data related to the form.
-class MyCustomFormState extends State<MyCustomForm>  with TickerProviderStateMixin {
+class MyCustomFormState extends State<MyCustomForm>
+    with TickerProviderStateMixin {
   double _value = 0;
   int _state = 0;
+  MediaQueryData data;
   Animation _animation;
   AnimationController _controller;
   GlobalKey _globalKey = GlobalKey();
@@ -50,112 +50,125 @@ class MyCustomFormState extends State<MyCustomForm>  with TickerProviderStateMix
 
   @override
   Widget build(BuildContext context) {
-
+    data = MediaQuery.of(context);
     // Build a Form widget using the _formKey created above.
-    return Form(
-      key: _formKey,
-      child: ListView(
-          children: <Widget>[
-
-            SizedBox(
-              width: 700.0,
-              height: 50.0,
-              child: Card(
-                elevation: 8.0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0)
-                ),
-
-                child: Padding(
-
-                  padding: const EdgeInsets.only(left: 14.0),
-                  child: TextFormField(
-
-                    autofocus: true,
-                    decoration: InputDecoration(
-
-                      border: InputBorder.none,
-                      hintText: 'enter your email',
-                      hintMaxLines: 1,
-
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Container(
+          height: data.size.height * .3,
+          child: Stack(
+            children: <Widget>[
+              Container(
+                color: Colors.orangeAccent,
+                height: data.size.height * .2,
               ),
-            ),
-            SizedBox(
-              width: 700.0,
-              height: 200.0,
-              child: Card(
-                elevation: 8.0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.0)
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 14.0),
-                  child: TextFormField(
-                    autofocus: true,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'please give your suggestions',
-                      hintMaxLines: 5,
-                    ),
-
-
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return 'Enter some text';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: Align(
-                alignment: Alignment.center,
-                child: PhysicalModel(
-                  elevation: 8,
-                  shadowColor: Colors.orangeAccent,
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(25),
-                  child: Container(
-                    key: _globalKey,
-                    height: 48,
-                    width: _width,
-                    child: RaisedButton(
-                      animationDuration: Duration(milliseconds: 1000),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
+              Container(
+                margin: EdgeInsets.fromLTRB(data.size.width*.5- data.size.height*.1,data.size.height*.1 ,0 ,0 ),
+                child:
+              CircleAvatar(
+                radius: data.size.height * .1,
+                backgroundColor: Colors.white,
+              ))
+            ],
+          ),
+        ),
+        Form(
+          key: _formKey,
+          child: Container(
+            height: data.size.height * .5,
+            child: ListView(children: <Widget>[
+              SizedBox(
+                width: 700.0,
+                height: 50.0,
+                child: Card(
+                  elevation: 8.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.0)),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 14.0),
+                    child: TextFormField(
+                      autofocus: false,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'enter your email',
+                        hintMaxLines: 1,
                       ),
-                      padding: EdgeInsets.all(0),
-                      child: setUpButtonChild(),
-                      onPressed: () {
-                        setState(() {
-                          if (_state == 0) {
-                            animateButton();
-                          }
-                        });
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Enter some text';
+                        }
+                        return null;
                       },
-                      elevation: 4,
-                      color: Colors.orangeAccent,
                     ),
                   ),
                 ),
               ),
-            ),
-          ]),
+              SizedBox(
+                width: 700.0,
+                height: 200.0,
+                child: Card(
+                  elevation: 8.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.0)),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 14.0),
+                    child: TextFormField(
+                      autofocus: false,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'please give your suggestions',
+                        hintMaxLines: 5,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Enter some text';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: PhysicalModel(
+                    elevation: 8,
+                    shadowColor: Colors.orangeAccent,
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(25),
+                    child: Container(
+                      key: _globalKey,
+                      height: 48,
+                      width: _width,
+                      child: RaisedButton(
+                        animationDuration: Duration(milliseconds: 1000),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        padding: EdgeInsets.all(0),
+                        child: setUpButtonChild(),
+                        onPressed: () {
+                          setState(() {
+                            if (_state == 0) {
+                              animateButton();
+                            }
+                          });
+                        },
+                        elevation: 4,
+                        color: Colors.orangeAccent,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ]),
+          ),
+        ),
+      ],
     );
-
   }
 
   ///
@@ -208,5 +221,4 @@ class MyCustomFormState extends State<MyCustomForm>  with TickerProviderStateMix
       });
     });
   }
-
 }
