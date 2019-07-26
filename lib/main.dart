@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:avatar_glow/avatar_glow.dart';
+
 
 
 const _emojis = ['😞','1','2','3','4','😃'];
@@ -11,6 +13,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: appTitle,
+
       home: Scaffold(
         appBar: AppBar(
           title: Text(appTitle),
@@ -66,10 +69,26 @@ class MyCustomFormState extends State<MyCustomForm>
               Container(
                 margin: EdgeInsets.fromLTRB(data.size.width*.5- data.size.height*.1,data.size.height*.1 ,0 ,0 ),
                 child:
-              CircleAvatar(
-                radius: data.size.height * .1,
-                backgroundColor: Colors.white,
-              ))
+                AvatarGlow(
+                  startDelay: Duration(milliseconds: 1000),
+                  glowColor: Colors.redAccent,
+                  endRadius: 90.0,
+                  duration: Duration(milliseconds: 2000),
+                  repeat: true,
+                  showTwoGlows: true,
+                  repeatPauseDuration: Duration(milliseconds: 100),
+                  child: Material(
+                    elevation: 8.0,
+                    shape: CircleBorder(),
+                    child: CircleAvatar(
+                        backgroundColor:Colors.grey[100] ,
+                        child: Image.asset('lg.png',height: 40.0,scale: 1.0,),
+                        radius: 40.0,
+
+                    ),
+                  ),
+                )
+)
             ],
           ),
         ),
