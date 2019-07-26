@@ -13,9 +13,10 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: appTitle,
-
+debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
+
           title: Text(appTitle),
         ),
         body: MyCustomForm(),
@@ -82,8 +83,13 @@ class MyCustomFormState extends State<MyCustomForm>
                     shape: CircleBorder(),
                     child: CircleAvatar(
                         backgroundColor:Colors.grey[100] ,
-                        child: Image.asset('lg.png',height: 40.0,scale: 1.0,),
+                        child: Image.asset("images/lg.png",
+                          height: 100.0,
+                          scale: 1.0,
+                          fit: BoxFit.cover,),
                         radius: 40.0,
+
+
 
                     ),
                   ),
